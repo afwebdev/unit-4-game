@@ -1,0 +1,36 @@
+body {
+  height: 100vh;
+  background-image: url("/assets/images/background.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.playerSelect h1 {
+  text-align: center;
+  font-size: 24px;
+}
+
+.playerSelect {
+  margin-top: 10em;
+  background-color: rgba(211, 211, 211, 0.9);
+  height: 50%;
+  width: 75%;
+}
+
+.character {
+  text-align: center;
+}
+
+.playerImage {
+  max-width: 180px;
+  height: 220px;
+}
+
+.characters {
+  display: flex;
+
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: space-around;
+}
