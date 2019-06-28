@@ -1,7 +1,6 @@
 body {
   height: 100vh;
   background-image: url("/assets/images/background.jpg");
-  background-size: cover;
   background-repeat: no-repeat;
 }
 
@@ -21,8 +20,9 @@ body {
   text-align: center;
 }
 
-.charSelectImage {
-  max-width: 225px;
+.charSelectImage,
+.battleImage {
+  max-width: 160px;
   height: 175px;
 }
 
