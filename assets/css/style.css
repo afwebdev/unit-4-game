@@ -13,22 +13,22 @@ body {
 .playerSelect {
   margin-top: 10em;
   background-color: rgba(211, 211, 211, 0.9);
-  height: 50%;
   width: 75%;
 }
 
 .character {
+  margin: 2em;
   text-align: center;
 }
 
-.playerImage {
-  max-width: 180px;
-  height: 220px;
+.charSelectImage {
+  max-width: 225px;
+  height: 175px;
 }
 
 .characters {
   display: flex;
-
+  flex-wrap: wrap;
   width: 100%;
   height: 100%;
   align-items: center;
