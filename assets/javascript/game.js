@@ -78,9 +78,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 src="${character.image}" alt="${character.name}">
             </div>
             <div class="info">
-                <p class="name mt-1">Name: <span>${character.name}</span></p>
-                <p class="health mt-2">Health: <span>${character.health}</span></p>
-                <p class="attack mt-1">Attack: <span>${character.attack}</span></p>
+                <p>Name: <span>${character.name}</span></p>
+                <p>Health: <span>${character.health}</span></p>
+                <p>Attack: <span>${character.attack}</span></p>
             </div>
         </div>`)
     }
@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         //OUR CHARACTERS NOW DRAWN ON THE DOM.
         $('.characters').append(builder(player))
-            .append('<h1>FIGHT</h1>')
+            .append('<div><button id="attack">Attack!</button><h1>FIGHT</h1></div>')
             .append(builder(enemy))
     }
 
@@ -120,10 +120,12 @@ document.addEventListener('DOMContentLoaded', function () {
     //This function beginBattle is called after enemy is chosen,
     //it appends info returned from buildBattleScreen after recieving both player and enemy objs.
     const beginBattle = function (player, enemy) {
+        $('#instruction').text('BATTLE TIME!');
         $('.characters').append(buildBattleScreen(player, enemy))
     }
 
-    //END FUNCTIONS AND VARIABLE DECLARATION.
+    //END FUNCTIONS AND GLOBAL VARIABLE DECLARATIONS
+
 
 
 
@@ -175,7 +177,24 @@ document.addEventListener('DOMContentLoaded', function () {
             })
             //SHOW ENEMY SELECT SCREEN
             buildCharacter(enemies);
+            $('#instruction').text('Choose your opponent!');
         }
     })
+
+
+    //Click handler used for attack button. Decrement chosen enemies stats(HP) in obj, 
+    //Call a function to do work on obj manipulation.
+    //also need to keep track of ammount of attacks, to be used as multiplier?
+    $('.characters').on('click', '#attack', function () {
+        //The user has clicked the attack button, 
+
+    })
+
+
+
+
+
+
+
 
 });
