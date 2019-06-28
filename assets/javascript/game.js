@@ -96,11 +96,12 @@ document.addEventListener('DOMContentLoaded', function () {
         const builder = function (character) {
             let img = $('<img>').addClass('battleImage').attr({
                 'data-name': character.name,
+                'data-enemy': character.enemy,
                 src: character.image,
                 alt: character.name
             })
             let infoName = $('<p>').text(`Name: ${character.name}`)
-            let infoHP = $('<p>').text(`Health: ${character.health}`)
+            let infoHP = $('<p>').attr('data-enemy', character.enemy).text(`Health: ${character.health}`)
             let infoAttack = $('<p>').text(`Attack: ${character.attack}`)
 
             let charDiv = $('<div>').addClass('character')
@@ -122,6 +123,11 @@ document.addEventListener('DOMContentLoaded', function () {
     const beginBattle = function (player, enemy) {
         $('#instruction').text('BATTLE TIME!');
         $('.characters').append(buildBattleScreen(player, enemy))
+    }
+
+    const attackEnemy = function (attackValue) {
+        chosenEnemy.health -= attackValue;
+        $('.tag of health field').text(chosenEnemy.health)
     }
 
     //END FUNCTIONS AND GLOBAL VARIABLE DECLARATIONS
