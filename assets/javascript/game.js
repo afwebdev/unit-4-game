@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
         {
             name: "Finn",
             health: 100,
-            attack: 9,
+            attack: 3,
             image: '/assets/images/characters/player/Finn_with_bionic_arm-0.png',
             enemy: false,
             attackModifier: 1
@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
         {
             name: "Jake",
             health: 95,
-            attack: 10,
+            attack: 4,
             image: '/assets/images/characters/player/JaketheDog.png',
             enemy: false,
             attackModifier: 1
@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
         {
             name: "BMO",
             health: 50,
-            attack: 5,
+            attack: 2,
             image: '/assets/images/characters/player/bmo.png',
             enemy: false,
             attackModifier: 1
@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function () {
         {
             name: "Marceline",
             health: 70,
-            attack: 10,
+            attack: 3,
             image: '/assets/images/characters/player/marceline.png',
             enemy: false,
             attackModifier: 1
