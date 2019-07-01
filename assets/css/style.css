@@ -8,6 +8,9 @@ body {
   text-align: center;
   font-size: 24px;
 }
+#instruction {
+  padding: 1em;
+}
 
 .playerSelect {
   margin-top: 10em;

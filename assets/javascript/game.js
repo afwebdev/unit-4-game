@@ -11,33 +11,37 @@ document.addEventListener('DOMContentLoaded', function () {
             health: 100,
             attack: 9,
             image: '/assets/images/characters/player/Finn_with_bionic_arm-0.png',
-            enemy: false
+            enemy: false,
+            attackModifier: 1
         },
         {
             name: "Jake",
             health: 95,
             attack: 10,
             image: '/assets/images/characters/player/JaketheDog.png',
-            enemy: false
+            enemy: false,
+            attackModifier: 1
         },
         {
             name: "BMO",
             health: 50,
             attack: 5,
             image: '/assets/images/characters/player/bmo.png',
-            enemy: false
+            enemy: false,
+            attackModifier: 1
         },
         {
             name: "Marceline",
             health: 70,
             attack: 10,
             image: '/assets/images/characters/player/marceline.png',
-            enemy: false
+            enemy: false,
+            attackModifier: 1
         },
     ]
 
     //Define an array of ENEMY objects
-    const enemies = [
+    let enemies = [
         {
             name: "Ice King",
             health: 70,
@@ -91,7 +95,6 @@ document.addEventListener('DOMContentLoaded', function () {
     //This fn is used to append info based on chosen player/enemy sent to this fn as player, enemy
     //builder is used to return pre-built structure of elements.
     const buildBattleScreen = function (player, enemy) {
-        console.log(this)
         //Element builder
         const builder = function (character) {
             let img = $('<img>').addClass('battleImage').attr({
@@ -125,9 +128,32 @@ document.addEventListener('DOMContentLoaded', function () {
         $('.characters').append(buildBattleScreen(player, enemy))
     }
 
-    const attackEnemy = function (attackValue) {
-        chosenEnemy.health -= attackValue;
-        $('.tag of health field').text(chosenEnemy.health)
+    const attackEnemy = function (attackValue, attackModifier) {
+        chosenEnemy.health -= (attackValue * attackModifier)
+
+        if (chosenEnemy.health <= 0) {
+            chosenPlayer.attackModifier = 1;
+            $(`[data-enemy = ${chosenEnemy.enemy}]`).text('DEAD')
+            //ENEMY IS DEAD. REMOVE ENEMY FROM ARRAY, SHOW ENEMY CHARCTER SELECT SCREEN.
+            $('#instruction').text('Choose Your Opponent!')
+            $('.characters').html('')
+            buildCharacter(enemies);
+            console.log('enemy dead')
+        } else {
+            $(`[data-enemy = ${chosenEnemy.enemy}]`).text(chosenEnemy.health)
+            chosenPlayer.attackModifier++;
+        }//end if statement.
+
+    }
+
+    const attackPlayer = function (attackValue) {
+        chosenPlayer.health -= chosenEnemy.attack;
+        if (chosenPlayer.health <= 0) {
+            $(`[data-enemy = ${chosenPlayer.enemy}]`).text('DEAD')
+            //Player is dead.
+            console.log('player dead')
+        }
+        $(`[data-enemy = ${chosenPlayer.enemy}]`).text(chosenPlayer.health)
     }
 
     //END FUNCTIONS AND GLOBAL VARIABLE DECLARATIONS
@@ -163,6 +189,15 @@ document.addEventListener('DOMContentLoaded', function () {
             enemies.forEach(function (enemy) {
                 if (name === enemy.name) {
                     chosenEnemy = enemy;
+
+                    //FIX ME. FIX ME. FIX ME. FIX ME.
+                    //Remove enemy from array? I should, maybe create an alternate array?..
+                    //if player wants to play again at end, because i am mutating original array,
+                    //a new game cant be initialized, as there are no enemies in original enemies array,
+                    //due to below mutate.
+                    enemies = enemies.filter(function (el) {
+                        return el.name != enemy.name
+                    })
                 }
             })
 
@@ -183,9 +218,10 @@ document.addEventListener('DOMContentLoaded', function () {
             })
             //SHOW ENEMY SELECT SCREEN
             buildCharacter(enemies);
-            $('#instruction').text('Choose your opponent!');
+            $('#instruction').text('CHOOSE YOUR OPPONENT!');
         }
     })
+
 
 
     //Click handler used for attack button. Decrement chosen enemies stats(HP) in obj, 
@@ -193,7 +229,8 @@ document.addEventListener('DOMContentLoaded', function () {
     //also need to keep track of ammount of attacks, to be used as multiplier?
     $('.characters').on('click', '#attack', function () {
         //The user has clicked the attack button, 
-
+        attackEnemy(chosenPlayer.attack, chosenPlayer.attackModifier);
+        attackPlayer(chosenEnemy.attack)
     })
 
 
