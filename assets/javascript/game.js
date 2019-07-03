@@ -150,10 +150,10 @@ document.addEventListener('DOMContentLoaded', function () {
         chosenPlayer.health -= chosenEnemy.attack;
         if (chosenPlayer.health <= 0) {
             $('#instruction').text('DEAD.. Play again?')
-            $('.characters').
-                // $(`[data-enemy = ${chosenPlayer.enemy}]`).text('DEAD')
-                //Player is dead.
-                console.log('player dead')
+            $('.characters').html('<button id="reload" onClick="history.go(0)">Play Again</button>')
+            // $(`[data-enemy = ${chosenPlayer.enemy}]`).text('DEAD')
+            //Player is dead.
+            console.log('player dead')
         } else {
             $(`[data-enemy = ${chosenPlayer.enemy}]`).text(chosenPlayer.health)
         }
@@ -197,8 +197,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     //Remove enemy from array? I should, maybe create an alternate array?..
                     //if player wants to play again at end, because i am mutating original array,
                     //a new game cant be initialized, as there are no enemies in original enemies array,
-                    //due to below filter.
-
+                    //due to below mutate.
                     enemies = enemies.filter(function (el) {
                         return el.name != enemy.name
                     })
