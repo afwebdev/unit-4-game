@@ -12,10 +12,16 @@ body {
   padding: 1em;
 }
 
+#reload {
+  padding: 1em;
+}
+
 .playerSelect {
   margin-top: 10em;
-  background-color: rgba(211, 211, 211, 0.9);
+  background-color: rgba(211, 211, 211, 0.8);
   width: 75%;
+  min-height: 15em;
+  border-radius: 20px;
 }
 
 .character {

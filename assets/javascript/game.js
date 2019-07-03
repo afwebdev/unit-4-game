@@ -9,22 +9,22 @@ document.addEventListener('DOMContentLoaded', function () {
         {
             name: "Finn",
             health: 100,
-            attack: 2,
+            attack: 3,
             image: './assets/images/characters/player/Finn_with_bionic_arm-0.png',
             enemy: false,
             attackModifier: 1
         },
         {
             name: "Jake",
-            health: 95,
-            attack: 2,
+            health: 100,
+            attack: 3,
             image: './assets/images/characters/player/JaketheDog.png',
             enemy: false,
             attackModifier: 1
         },
         {
             name: "BMO",
-            health: 50,
+            health: 100,
             attack: 3,
             image: './assets/images/characters/player/bmo.png',
             enemy: false,
@@ -32,8 +32,8 @@ document.addEventListener('DOMContentLoaded', function () {
         },
         {
             name: "Marceline",
-            health: 70,
-            attack: 2,
+            health: 100,
+            attack: 3,
             image: './assets/images/characters/player/marceline.png',
             enemy: false,
             attackModifier: 1
@@ -44,22 +44,22 @@ document.addEventListener('DOMContentLoaded', function () {
     let enemies = [
         {
             name: "Ice King",
-            health: 70,
-            attack: 4,
+            health: 110,
+            attack: 2,
             image: './assets/images/characters/enemy/220px-Ice_King.png',
             enemy: true
         },
         {
             name: "Bucket Knight",
-            health: 80,
-            attack: 4,
+            health: 105,
+            attack: 2,
             image: './assets/images/characters/enemy/Bucket_knight.png',
             enemy: true
         },
         {
             name: "Lich King",
             health: 100,
-            attack: 5,
+            attack: 4,
             image: './assets/images/characters/enemy/The_Lich_King.png',
             enemy: true
         }
@@ -67,9 +67,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     const buildCharacter = function (arr) {
-        arr.forEach(function (character) {
-            $('.characters').append(buildCharcterCard(character))
-        })
+        if (arr.length >= 1) {
+            arr.forEach(function (character) {
+                $('.characters').append(buildCharcterCard(character))
+            })
+        } else {
+            $('#instruction').text('Winner Winner!')
+            $('.characters').html('<button id="reload" onClick="history.go(0)">Play Again</button>')
+        }
     }
     //Method 1
     //Written HTML to be used inside append.
@@ -132,12 +137,12 @@ document.addEventListener('DOMContentLoaded', function () {
         chosenEnemy.health -= (attackValue * attackModifier)
 
         if (chosenEnemy.health <= 0) {
+            //init chosenPlayer attack modifer against enemy.
             chosenPlayer.attackModifier = 1;
-            $(`[data-enemy = ${chosenEnemy.enemy}]`).text('DEAD')
-            //ENEMY IS DEAD. REMOVE ENEMY FROM ARRAY, SHOW ENEMY CHARCTER SELECT SCREEN.
+            //ENEMY IS DEAD. SHOW ENEMY CHARCTER SELECT SCREEN.
             $('#instruction').text('Choose Your Opponent!')
             $('.characters').html('')
-            buildCharacter(enemies);
+            buildCharacter(enemies)
             console.log('enemy dead')
         } else {
             $(`[data-enemy = ${chosenEnemy.enemy}]`).text(chosenEnemy.health)
@@ -151,8 +156,6 @@ document.addEventListener('DOMContentLoaded', function () {
         if (chosenPlayer.health <= 0) {
             $('#instruction').text('DEAD.. Play again?')
             $('.characters').html('<button id="reload" onClick="history.go(0)">Play Again</button>')
-            // $(`[data-enemy = ${chosenPlayer.enemy}]`).text('DEAD')
-            //Player is dead.
             console.log('player dead')
         } else {
             $(`[data-enemy = ${chosenPlayer.enemy}]`).text(chosenPlayer.health)
@@ -188,18 +191,16 @@ document.addEventListener('DOMContentLoaded', function () {
             //CLEAR THE SCREEN
             $('.characters').html('');
 
-            //STORE ENEMY
+            //STORE ENEMY, if chosen named enemy is inside array, make it our new chosenEnemy (enemy)
             enemies.forEach(function (enemy) {
                 if (name === enemy.name) {
                     chosenEnemy = enemy;
 
-                    //FIX ME. FIX ME. FIX ME. FIX ME.
-                    //Remove enemy from array? I should, maybe create an alternate array?..
-                    //if player wants to play again at end, because i am mutating original array,
-                    //a new game cant be initialized, as there are no enemies in original enemies array,
-                    //due to below mutate.
-                    enemies = enemies.filter(function (el) {
-                        return el.name != enemy.name
+                    //Alter the enemy array using filter to remove our chosen enemy from play.
+                    //Filter runs through each object, assigning (filterEnemy), and returning when true,
+                    //if our chosen enemy name is found in the array. 
+                    enemies = enemies.filter(function (filterEnemy) {
+                        return filterEnemy.name != enemy.name
                     })
                 }
             })
