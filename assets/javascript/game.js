@@ -9,32 +9,32 @@ document.addEventListener('DOMContentLoaded', function () {
         {
             name: "Finn",
             health: 100,
-            attack: 3,
-            image: '/assets/images/characters/player/Finn_with_bionic_arm-0.png',
+            attack: 2,
+            image: './assets/images/characters/player/Finn_with_bionic_arm-0.png',
             enemy: false,
             attackModifier: 1
         },
         {
             name: "Jake",
             health: 95,
-            attack: 4,
-            image: '/assets/images/characters/player/JaketheDog.png',
+            attack: 2,
+            image: './assets/images/characters/player/JaketheDog.png',
             enemy: false,
             attackModifier: 1
         },
         {
             name: "BMO",
             health: 50,
-            attack: 2,
-            image: '/assets/images/characters/player/bmo.png',
+            attack: 3,
+            image: './assets/images/characters/player/bmo.png',
             enemy: false,
             attackModifier: 1
         },
         {
             name: "Marceline",
             health: 70,
-            attack: 3,
-            image: '/assets/images/characters/player/marceline.png',
+            attack: 2,
+            image: './assets/images/characters/player/marceline.png',
             enemy: false,
             attackModifier: 1
         },
@@ -45,22 +45,22 @@ document.addEventListener('DOMContentLoaded', function () {
         {
             name: "Ice King",
             health: 70,
-            attack: 3,
-            image: '/assets/images/characters/enemy/220px-Ice_King.png',
+            attack: 4,
+            image: './assets/images/characters/enemy/220px-Ice_King.png',
             enemy: true
         },
         {
             name: "Bucket Knight",
             health: 80,
             attack: 4,
-            image: '/assets/images/characters/enemy/Bucket_knight.png',
+            image: './assets/images/characters/enemy/Bucket_knight.png',
             enemy: true
         },
         {
             name: "Lich King",
             health: 100,
             attack: 5,
-            image: '/assets/images/characters/enemy/The_Lich_King.png',
+            image: './assets/images/characters/enemy/The_Lich_King.png',
             enemy: true
         }
     ]
@@ -149,11 +149,14 @@ document.addEventListener('DOMContentLoaded', function () {
     const attackPlayer = function (attackValue) {
         chosenPlayer.health -= chosenEnemy.attack;
         if (chosenPlayer.health <= 0) {
-            $(`[data-enemy = ${chosenPlayer.enemy}]`).text('DEAD')
-            //Player is dead.
-            console.log('player dead')
+            $('#instruction').text('DEAD.. Play again?')
+            $('.characters').
+                // $(`[data-enemy = ${chosenPlayer.enemy}]`).text('DEAD')
+                //Player is dead.
+                console.log('player dead')
+        } else {
+            $(`[data-enemy = ${chosenPlayer.enemy}]`).text(chosenPlayer.health)
         }
-        $(`[data-enemy = ${chosenPlayer.enemy}]`).text(chosenPlayer.health)
     }
 
     //END FUNCTIONS AND GLOBAL VARIABLE DECLARATIONS
@@ -194,7 +197,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     //Remove enemy from array? I should, maybe create an alternate array?..
                     //if player wants to play again at end, because i am mutating original array,
                     //a new game cant be initialized, as there are no enemies in original enemies array,
-                    //due to below mutate.
+                    //due to below filter.
+
                     enemies = enemies.filter(function (el) {
                         return el.name != enemy.name
                     })
