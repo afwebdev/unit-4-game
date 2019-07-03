@@ -172,10 +172,7 @@ document.addEventListener('DOMContentLoaded', function () {
             $(`[data-enemy = ${chosenPlayer.enemy}]`).text(chosenPlayer.health)
         }
     }
-
     //END FUNCTIONS AND GLOBAL VARIABLE DECLARATIONS
-
-
 
 
 
@@ -238,8 +235,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     })
 
-
-
     //Click handler used for attack button. Decrement chosen enemies stats(HP) in obj, 
     //Call a function to do work on obj manipulation.
     //also need to keep track of ammount of attacks, to be used as multiplier?
@@ -248,12 +243,5 @@ document.addEventListener('DOMContentLoaded', function () {
         attackEnemy(chosenPlayer.attack, chosenPlayer.attackModifier);
         attackPlayer(chosenEnemy.attack)
     })
-
-
-
-
-
-
-
 
 });
