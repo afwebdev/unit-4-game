@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
         {
             name: "Finn",
             health: 100,
-            attack: 3,
+            attack: 8,
             image: './assets/images/characters/player/Finn_with_bionic_arm-0.png',
             enemy: false,
             attackModifier: 1
@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
         {
             name: "Jake",
             health: 100,
-            attack: 3,
+            attack: 8,
             image: './assets/images/characters/player/JaketheDog.png',
             enemy: false,
             attackModifier: 1
@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
         {
             name: "BMO",
             health: 100,
-            attack: 3,
+            attack: 8,
             image: './assets/images/characters/player/bmo.png',
             enemy: false,
             attackModifier: 1
@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function () {
         {
             name: "Marceline",
             health: 100,
-            attack: 3,
+            attack: 8,
             image: './assets/images/characters/player/marceline.png',
             enemy: false,
             attackModifier: 1
@@ -44,22 +44,22 @@ document.addEventListener('DOMContentLoaded', function () {
     let enemies = [
         {
             name: "Ice King",
-            health: 110,
-            attack: 2,
+            health: 100,
+            attack: 3,
             image: './assets/images/characters/enemy/220px-Ice_King.png',
             enemy: true
         },
         {
             name: "Bucket Knight",
-            health: 105,
+            health: 150,
             attack: 2,
             image: './assets/images/characters/enemy/Bucket_knight.png',
             enemy: true
         },
         {
             name: "Lich King",
-            health: 100,
-            attack: 4,
+            health: 180,
+            attack: 25,
             image: './assets/images/characters/enemy/The_Lich_King.png',
             enemy: true
         }
@@ -119,9 +119,15 @@ document.addEventListener('DOMContentLoaded', function () {
             return charDiv.append(portraitDiv.append(infoDiv));
         }
 
-        //OUR CHARACTERS NOW DRAWN ON THE DOM.
+        //OUR CHARACTERS NOW DRAWN ON THE DOM, also, append some battleground html.
         $('.characters').append(builder(player))
-            .append('<div><button id="attack">Attack!</button><h1>FIGHT</h1></div>')
+            .append(`<div id="centerAtkDiv">
+                        <button id="attack">Attack!</button>
+                        <h1>FIGHT</h1>
+                        <h3 id="battleLog">BattleLog:</h3>
+                        <p class="logEntry">Hit for x</p>
+                    </div>
+                        `)
             .append(builder(enemy))
     }
 
@@ -137,20 +143,21 @@ document.addEventListener('DOMContentLoaded', function () {
         chosenEnemy.health -= (attackValue * attackModifier)
 
         if (chosenEnemy.health <= 0) {
-            //init chosenPlayer attack modifer against enemy.
-            chosenPlayer.attackModifier = 1;
-            //ENEMY IS DEAD. SHOW ENEMY CHARCTER SELECT SCREEN.
+            //ENEMY IS DEAD. SHOW ENEMY CHARCTER SELECT SCREEN,
+            //  or Winner screen, via buildCharacter call, increase the attackModifier++ of player.
             $('#instruction').text('Choose Your Opponent!')
             $('.characters').html('')
             buildCharacter(enemies)
             console.log('enemy dead')
         } else {
+            //this is a cool conditional jQuery selector. select (if) data-enemy = true
             $(`[data-enemy = ${chosenEnemy.enemy}]`).text(chosenEnemy.health)
-            chosenPlayer.attackModifier++;
-        }//end if statement.
-
+        }
+        chosenPlayer.attackModifier++;
     }
 
+    //Player attack function, recieves an attackVal, reduces val from player health, 
+    //checks if health < 0, dead screen, replay button.
     const attackPlayer = function (attackValue) {
         chosenPlayer.health -= chosenEnemy.attack;
         if (chosenPlayer.health <= 0) {
@@ -176,9 +183,10 @@ document.addEventListener('DOMContentLoaded', function () {
     //Char select screen is now created, and displayed.
 
 
-    // on click handler, it should look at enemy data-type=T/F (string)
+    // on click handler, looks at enemy data-type=T/F (string)
     //the class of .charSelectImage is one time(during selection phases) and changed during battle,
     //thus, when in battle this onclick is not used.
+    //This uses .characters as the parent for reference, used when recreating elements
     $('.characters').on('click', '.charSelectImage', function () {
         //uses dataset info to decide which array to iterate, and to assign that character obj,
         //to its defined, -> chosenPlayer or chosenEnemy
@@ -198,7 +206,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     //Alter the enemy array using filter to remove our chosen enemy from play.
                     //Filter runs through each object, assigning (filterEnemy), and returning when true,
-                    //if our chosen enemy name is found in the array. 
+                    //if our chosen enemy name is found in the array.
                     enemies = enemies.filter(function (filterEnemy) {
                         return filterEnemy.name != enemy.name
                     })
