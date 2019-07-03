@@ -105,8 +105,8 @@ document.addEventListener('DOMContentLoaded', function () {
             let img = $('<img>').addClass('battleImage').attr({
                 'data-name': character.name,
                 'data-enemy': character.enemy,
-                src: character.image,
-                alt: character.name
+                'src': character.image,
+                'alt': character.name
             })
             let infoName = $('<p>').text(`Name: ${character.name}`)
             let infoHP = $('<p>').attr('data-enemy', character.enemy).text(`Health: ${character.health}`)
@@ -122,10 +122,13 @@ document.addEventListener('DOMContentLoaded', function () {
         //OUR CHARACTERS NOW DRAWN ON THE DOM, also, append some battleground html.
         $('.characters').append(builder(player))
             .append(`<div id="centerAtkDiv">
-                        <button id="attack">Attack!</button>
-                        <h1>FIGHT</h1>
-                        <h3 id="battleLog">BattleLog:</h3>
-                        <p class="logEntry">Hit for x</p>
+                        <div style="height: 100%">
+                            <button id="attack">Attack!</button>
+                            <h1>FIGHT</h1>
+                        </div>
+                        <div id="battleLog">
+                            <h3 id="battleHeader">BattleLog:</h3>
+                        </div>
                     </div>
                         `)
             .append(builder(enemy))
@@ -141,7 +144,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const attackEnemy = function (attackValue, attackModifier) {
         chosenEnemy.health -= (attackValue * attackModifier)
-
+        $('#battleHeader').after(`<p class="battleEntry"> ${chosenPlayer.name} hit for ${attackValue * attackModifier} against ${chosenEnemy.name}</p>`)
         if (chosenEnemy.health <= 0) {
             //ENEMY IS DEAD. SHOW ENEMY CHARCTER SELECT SCREEN,
             //  or Winner screen, via buildCharacter call, increase the attackModifier++ of player.
@@ -160,6 +163,7 @@ document.addEventListener('DOMContentLoaded', function () {
     //checks if health < 0, dead screen, replay button.
     const attackPlayer = function (attackValue) {
         chosenPlayer.health -= chosenEnemy.attack;
+        $('#battleHeader').after(`<p class="battleEntry"> ${chosenEnemy.name} hit for ${attackValue} against ${chosenPlayer.name}</p>`)
         if (chosenPlayer.health <= 0) {
             $('#instruction').text('DEAD.. Play again?')
             $('.characters').html('<button id="reload" onClick="history.go(0)">Play Again</button>')

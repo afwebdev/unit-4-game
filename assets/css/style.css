@@ -53,3 +53,7 @@ h3 {
   align-items: center;
   justify-content: space-around;
 }
+
+#battleLog {
+  height: 10em;
+}
