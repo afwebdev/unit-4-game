@@ -45,14 +45,14 @@ document.addEventListener('DOMContentLoaded', function () {
         {
             name: "Ice King",
             health: 100,
-            attack: 3,
+            attack: 5,
             image: './assets/images/characters/enemy/220px-Ice_King.png',
             enemy: true
         },
         {
             name: "Bucket Knight",
             health: 150,
-            attack: 2,
+            attack: 10,
             image: './assets/images/characters/enemy/Bucket_knight.png',
             enemy: true
         },

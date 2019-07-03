@@ -24,3 +24,9 @@ Each player takes turns, when player attacks, each subsequent attack is 2x the l
 | `beginBattle(player, enemy)`       | Called at enemy select screen, upon choosing enemy, appends return of **buildBattleScreen(x,y)** to page.                                                  |
 | `attackEnemy(value, modifier)`     | called during battle, reducing enemy health based on attack modifier of player, checks for 0 enemy health, and calls to build enemy select screen if true. |
 | attackPlayer(attackValue)          | called during battle, reducing player health based on current enemy attack rating                                                                          |
+
+# Features
+
+- 4 Playable characters to choose from.
+- 3 Enemies to defeat.
+- Attack multiplier increase every successful battle vs enemy.
