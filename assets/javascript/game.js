@@ -51,14 +51,14 @@ document.addEventListener('DOMContentLoaded', function () {
         },
         {
             name: "Bucket Knight",
-            health: 150,
-            attack: 10,
+            health: 120,
+            attack: 8,
             image: './assets/images/characters/enemy/Bucket_knight.png',
             enemy: true
         },
         {
             name: "Lich King",
-            health: 180,
+            health: 150,
             attack: 25,
             image: './assets/images/characters/enemy/The_Lich_King.png',
             enemy: true
